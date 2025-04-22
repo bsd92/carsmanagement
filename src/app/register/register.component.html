@@ -1,0 +1,28 @@
+
+  <div class="container mt-5">
+    <h2>Créer un nouvel utilisateur</h2>
+  
+    <form (ngSubmit)="registerUser()">
+      <div>
+        <label>Nom d'utilisateur</label>
+        <input [(ngModel)]="user.username" name="username" required />
+      </div>
+  
+      <div>
+        <label>Email</label>
+        <input type="email" [(ngModel)]="user.email" name="email" required />
+      </div>
+  
+      <div>
+        <label>Mot de passe</label>
+        <input type="password" [(ngModel)]="user.password" name="password" required />
+      </div>
+
+  
+      <button type="submit">Créer l’utilisateur</button>
+    </form>
+  
+    <div *ngIf="successMessage" style="color: green;">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
+  </div>
+  

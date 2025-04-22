@@ -1,0 +1,63 @@
+<!--
+
+<div class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+  
+      <li class="nav-item">
+        <a
+          [routerLink]="(isAdmin || isManager || isUser) ? '/cars' : null"
+          [class.disabled]="!(isAdmin || isManager || isUser)"
+          class="nav-link"
+          (click)="!(isAdmin || isManager || isUser) && $event.preventDefault()"
+          [title]="(isAdmin || isManager || isUser) ? '' : 'Accès réservé aux utilisateurs normaux'"
+        >
+          Liste des voitures
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          [routerLink]="(isAdmin || isManager) ? '/create' : null"
+          [class.disabled]="!(isAdmin || isManager)"
+          class="nav-link"
+          (click)="!(isAdmin || isManager) && $event.preventDefault()"
+          [title]="(isAdmin || isManager) ? '' : 'Accès réservé aux admins ou managers'"
+        >
+        Créer une voiture
+        </a>
+      </li>
+  
+      <li class="nav-item">
+        <a routerLink="login"
+           routerLinkActive="active"
+           class="nav-link"
+           (click)="logout()">Déconnexion</a>
+      </li>
+    </ul>
+  </div>
+
+-->
+
+<div class="container">
+    <h3>Liste des voitures</h3>
+    <table style="width: 100%;">
+        <thead>
+            <tr>
+                <th>Immatriculation</th>
+                <th>Marque</th>
+                <th>Modèle</th>
+                <th>Etat</th>
+                <th >Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let car of cars">
+                <td>{{car.immatriculation}}</td>
+                <td>{{car.marque}}</td>
+                <td>{{car.modele}}</td>
+                <td>{{car.etat}}</td>
+                <td><button (click)="updateCar(car.immatriculation)" class="btn btn-info" [disabled]="!canUpdate()">Update</button>
+                <button (click)="deleteCar(car.immatriculation)" class="btn btn-danger" style="margin-left: 10px;" [disabled]="!canDelete()" >Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

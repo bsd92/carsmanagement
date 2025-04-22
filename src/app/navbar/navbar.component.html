@@ -1,0 +1,15 @@
+<!-- navbar.component.html -->
+ <h1>Bienvenue sur notre plateforme</h1>
+<nav>
+    <ul>
+      <li><a href="/cars">Accueil</a></li>
+      <li><a href="/login">Connexion</a></li>
+      <li *ngIf="isLoggedIn()">
+        <button (click)="logout()">Deconnexion</button>
+      </li>
+      <li *ngIf="!isLoggedIn()">
+        <a href="/login">Connexion</a>
+      </li>
+    </ul>
+  </nav>
+  

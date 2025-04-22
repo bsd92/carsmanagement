@@ -1,0 +1,24 @@
+<h2>Gestion des rôles</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Nom d'utilisateur</th>
+      <th>Rôles</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.username }}</td>
+      <td>
+        <label *ngFor="let role of availableRoles" class="me-2">
+          <input type="checkbox" [checked]="user.roles.includes(role)" (change)="toggleRole(user, role)"> {{ role }}
+        </label>
+      </td>
+      <td>
+        <button class="btn btn-success btn-sm" (click)="updateUserRoles(user)">Enregistrer</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+

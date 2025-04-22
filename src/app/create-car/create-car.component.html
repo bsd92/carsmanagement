@@ -1,0 +1,24 @@
+<div class="col-md-6 offset-md-3">
+    <h3>Ajouter une voiture</h3>
+    <form (ngSubmit)="onSubmit()" action="">
+        <div class="form-group">
+            <label for="">Immatriculation</label>
+            <input type="text" class="form-control" id="immatriculation" [(ngModel)]="car.immatriculation"
+                name="immatriculation">
+        </div>
+        <div class="form-group">
+            <label for="">Marque</label>
+            <input type="text" class="form-control" id="marque" [(ngModel)]="car.marque" name="marque">
+        </div>
+        <div class="form-group">
+            <label for="">Modele</label>
+            <input type="text" class="form-control" id="modele" [(ngModel)]="car.modele" name="modele">
+        </div>
+        <div class="form-group">
+            <label for="">Etat</label>
+            <input type="text" class="form-control" id="etat" [(ngModel)]="car.etat" name="etat">
+        </div>
+        <button class="btn btn-success" type="submit">Ajouter</button>
+
+    </form>
+</div>
