@@ -26,10 +26,19 @@ export class AuthInterceptor implements HttpInterceptor {
 
     return next.handle(clonedRequest).pipe(
       catchError((error: HttpErrorResponse) => {
+        /*
         if (error.status === 401) {
           return this.handle401Error(req, next);
         }
-
+        */
+        if (error.status === 401) {
+            const refreshToken = this.authService.getRefreshToken();
+            if (refreshToken) {
+              return this.handle401Error(req, next);
+            } 
+        }
+          
+        // Aucun refreshToken => probablement une vraie erreur de login
         return throwError(() => error);
       })
     );
@@ -72,48 +81,3 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 }
 
-/*
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-
-    constructor(private authService: AuthService) { }
-
-
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const token = this.authService.getAccessToken();
-
-        let clonedRequest = req;
-        if (token) {
-            clonedRequest = req.clone({
-                headers: req.headers.set('Authorization', `Bearer ${token}`)
-            });
-        }
-
-        return next.handle(clonedRequest).pipe(
-            catchError((error: HttpErrorResponse) => {
-                if (error.status === 401) {
-                    // access token expiré → on tente avec refresh token
-                    return this.authService.refreshToken().pipe(
-                        switchMap((response: any) => {
-                            const newAccessToken = response.accessToken;
-                            localStorage.setItem('access_token', newAccessToken); // mise à jour access token
-
-                            const retryRequest = req.clone({
-                                headers: req.headers.set('Authorization', `Bearer ${newAccessToken}`)
-                            });
-
-                            return next.handle(retryRequest);
-                        }),
-                        catchError(err => {
-                            this.authService.logout();
-                            return throwError(() => err);
-                        })
-                    );
-                }
-
-                return throwError(() => error);
-            })
-        );
-    }
-}
-    */

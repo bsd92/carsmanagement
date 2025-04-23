@@ -112,6 +112,13 @@ export class AuthService {
     return null;
   }
 
+  getRefreshToken(): string | null {
+    if (typeof window !== 'undefined') {
+    return localStorage.getItem('refreshToken');
+    }
+    return null;
+  }
+
   saveToken(token: string): void {
     if (typeof window !== 'undefined') {
       localStorage.setItem('accessToken', token);
